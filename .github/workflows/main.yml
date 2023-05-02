@@ -3,13 +3,8 @@
 
 name: getproxy
 
-on: 
-  push: 
-    branches: [ master ]
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '*/15 * * * *'
-  
+on: workflow_dispatch
+ 
 
 jobs:
   build:
@@ -23,9 +18,9 @@ jobs:
         python-version: 3.5
     - name: setup env & install getproxy
       run: |
-        git config --global user.name "fate0"
-        git config --global user.email "git@fatezero.org"
-        pip install git+https://github.com/fate0/getproxy.git@master
+        git config --global user.name "pwbkn"
+        git config --global user.email "pwwalabkn@gmail.com"
+        pip install git+https://github.com/pwbkn/getproxy.git@master
 
     - name: run getproxy
       run: |
@@ -38,12 +33,12 @@ jobs:
         git init
         git add .
         git commit -m "`env TZ=Asia/Shanghai date`"
-        git remote add origin git@github.com:fate0/proxylist.git
+        git remote add origin git@github.com:pwbkn/proxylist.git
         
     - name: push
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.SSH_DEPLOY_KEY }}
         branch: master
         force: true
 
